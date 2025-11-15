@@ -1,0 +1,46 @@
+[package]
+name = "silatus_vecembed"
+version = "0.2.1"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+qdrant-client = "1.14.0"
+tonic = "0.12.3"
+prost = "0.13.3"
+reqwest = { version = "0.11", features = ["json", "blocking"] }
+tokio = { version = "1.32.0", features = ["macros", "sync", "rt-multi-thread"] }
+log = "0.4.20"
+env_logger = "0.10.0"
+thiserror = "1.0.50"
+url = "2.4.1"
+futures = "0.3.28"
+sea-orm = { version = "0.12", features = [ "sqlx-mysql", "runtime-tokio-native-tls", "macros", "mock" ] }
+chrono = "0.4.31"
+dotenvy = "0.15.7"
+serde = { version = "1.0.189", features = ["derive"] }
+syslog = "6.1.0"
+native-tls = "0.2.11"
+serde_json = "1.0.108"
+strum = "0.25.0"
+strum_macros = "0.25.3"
+anyhow = "1.0.75"
+clap = { version = "4.4.8", features = ["derive"] }
+uuid = { version = "1.6.1", features = ["std", "v7"] }
+tracing-subscriber = { version = "0.3", features = [ "env-filter", "fmt" ] }
+tokio-rustls = "0.25.0"
+rustls-pemfile = "2.0.0"
+local-ip-address = "0.5.7"
+rustls-pki-types = "1.1.0"
+async-openai = "0.23.3"
+tokenizers = { version = "0.19.1", features = ["http"] }
+
+[dev-dependencies]
+mockito = "1.2.0"
+mockall = "0.11.4"
+oneshot = "0.1.6"
+
+[build-dependencies]
+tonic-build = "0.12.3"
+prost-build = "0.13.3"

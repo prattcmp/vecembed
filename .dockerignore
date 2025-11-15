@@ -1,0 +1,14 @@
+storage/*.key
+.idea
+_ide_helper.php
+.vscode
+.vs
+.git
+.github
+docker-compose.yml
+docker
+target
+README.md
+.editorconfig
+tests
+Dockerfile

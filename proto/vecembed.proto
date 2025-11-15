@@ -1,0 +1,80 @@
+syntax = "proto3";
+import "google/protobuf/wrappers.proto";
+
+package vecembedrpc;
+
+option php_namespace = "App\\Proto\\VecEmbed";
+option php_metadata_namespace = "App\\Proto\\VecEmbed";
+
+service VecEmbedRpc {
+    rpc StoreVectorEmbedding (StoreVectorEmbeddingRequest) returns (StoreVectorEmbeddingReply);
+    rpc StoreVectorEmbeddings (StoreVectorEmbeddingsRequest) returns (StoreVectorEmbeddingsReply);
+    rpc RetrieveDocuments (RetrieveDocumentsRequest) returns (DocumentsReply);
+}
+
+enum EmbeddableModel {
+    CONTENTS = 0;
+    UPLOADED_FILES = 1;
+}
+
+message QuantizationSearchParams {
+    google.protobuf.BoolValue ignore = 1;
+    google.protobuf.BoolValue rescore = 2;
+    google.protobuf.DoubleValue oversampling = 3;
+}
+
+message SearchParams {
+    google.protobuf.UInt64Value hnsw_ef = 1;
+    google.protobuf.BoolValue exact = 2;
+    QuantizationSearchParams quantization = 3;
+    google.protobuf.BoolValue indexed_only = 4;
+}
+
+message VectorDbDocument {
+    int64 id = 1;
+    string table_name = 2;
+    string content = 3;
+    optional uint64 user_id = 4;
+}
+
+message StoreVectorEmbeddingRequest {
+    VectorDbDocument document = 1;
+}
+
+message StoreVectorEmbeddingsRequest {
+    repeated VectorDbDocument documents = 1;
+}
+
+message StoreVectorEmbeddingsReply {
+    bool successful = 1;
+}
+
+message RetrieveDocumentsRequest {
+    string query = 1;
+    string task_description = 2;
+    int64 user_id = 3;
+    google.protobuf.UInt64Value limit = 4;
+    SearchParams params = 5;
+    map<string, IdList> filter_ids = 6;
+}
+
+message IdList {
+    repeated int64 ids = 1;
+}
+
+message StoreVectorEmbeddingReply {
+    bool successful = 1;
+}
+
+message DocumentReply {
+    string table_name = 1;
+    uint64 id = 2;
+    int64 user_id = 3;
+    float ranking_score = 4;
+    uint64 start = 5;
+    uint64 end = 6;
+}
+
+message DocumentsReply {
+    repeated DocumentReply documents = 1;
+}
